@@ -22,10 +22,10 @@ def auth(teamname, password):
     if user and user[0].exists: return user[0]
 
 
-def add_points(user, points: int, level: int, tokens: int = 0):
+def add_points(user, points: int, level: int, tokens: int):
     user.reference.update({u'scores.' + str(level): {
         u'points': points,
-        u'tokens': tokens,
+        u'tokens': min(tokens, user.reference.get().to_dict()['scores'][str(level)]['tokens'])
     }})
 
 
