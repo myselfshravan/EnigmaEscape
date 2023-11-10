@@ -36,7 +36,7 @@ def add_points(user, points: int, level: int, tokens: int, prompt: str):
 def get_points(user):
     scores = user.reference.get().to_dict().get('scores', {})
     return sum(
-        score.get('points', scores.get('tokens', 0)) - scores.get('tokens', 0) for score in scores.values()
+        score.get('points', score.get('tokens', 0)) - score.get('tokens', 0) for score in scores.values()
     )
 
 
