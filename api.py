@@ -22,16 +22,24 @@ def auth(teamname, password):
     if user and user[0].exists: return user[0]
 
 
-def add_points(user, points: int, level: int, tokens: int):
+def add_points(user, points: int, level: int, tokens: int, prompt: str):
+    scores = user.reference.get().to_dict().get('scores', {})
+    tokens_next = min(tokens, scores.get(str(level), {}).get('tokens', tokens))
     user.reference.update({u'scores.' + str(level): {
         u'points': points,
-        u'tokens': min(tokens, user.reference.get().to_dict()['scores'][str(level)]['tokens'])
+        u'tokens': tokens_next,
+        u'best_prompt': prompt if tokens < tokens_next else scores.get(str(level), {}).get("best_prompt", "")
     }})
 
 
 def get_points(user):
-    scores = user.reference.get().to_dict()['scores']
+    scores = user.reference.get().to_dict().get('scores', {})
     return sum(score['points'] - score["tokens"] for score in scores.values())
+
+
+def levels_done(user, levels):
+    scores = user.reference.get().to_dict().get('scores', {})
+    return [lev in scores for lev in levels]
 
 
 if __name__ == '__main__':

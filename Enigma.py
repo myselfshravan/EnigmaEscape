@@ -2,7 +2,7 @@ import streamlit as st
 
 st.set_page_config(page_title="Enigma Escape", page_icon="🔐")
 
-from api import auth, add_points, get_points
+from api import auth, add_points, get_points, levels_done
 from levels import levels
 from nemo import EnigmaEscape
 
@@ -31,12 +31,16 @@ st.write(
 )
 
 with EnigmaEscape(levels) as bot:
-    bot.set_level(st.radio("Level", options=range(len(levels)), format_func=lambda x: f"{levels[x].name}: {levels[x].points} points"))
+    done_levels = levels_done(st.session_state["user"], [lev.name for lev in bot.levels])
+    bot.set_level(st.radio("Level", options=range(len(levels)),
+                           format_func=lambda x: f"{levels[x].name}: {levels[x].points} points {'✅' if done_levels[x] else '❌'}"))
     st.markdown(f"""
     <h4>Make the bot say the Enigma Phrase <span style="color: #ff0000">{bot.level.phrase}</span> to escape this level</h4>
     """, unsafe_allow_html=True)
     with st.form("chat"):
-        st.info(f"Points: {get_points(st.session_state['user'])}")
+        points_holder = st.empty()
+        st.session_state["curr_points"] = get_points(st.session_state["user"])
+        points_holder.info(f"Points: {st.session_state['curr_points']}")
         que = st.text_area("Enter your instructions here:", height=100)
         if st.form_submit_button("Send"):
             with st.container():
@@ -51,7 +55,9 @@ with EnigmaEscape(levels) as bot:
                     st.warning(content)
                 elif _type == "success":
                     st.success(content)
-                    st.success(f"hurray! you have earned {bot.level.points} points")
-                    add_points(st.session_state["user"], bot.level.points, bot.level.name, bot.level.max_token)
+                    st.success(f"hurray! you have earned {bot.level.points - resp['tokens'] - st.session_state['curr_points']} more points")
+                    add_points(st.session_state["user"], bot.level.points, bot.level.name, resp["tokens"], que)
+                    st.session_state["curr_points"] = get_points(st.session_state["user"])
+                    points_holder.info(f"Points: {st.session_state['curr_points']}")
                 else:
                     st.write(content)

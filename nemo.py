@@ -81,6 +81,7 @@ class EnigmaEscape:
             return {
                 "content": content,
                 "type": "success",
+                "tokens": resp["usage"]["prompt_tokens"],
             }
         return {
             "content": content,
@@ -98,7 +99,8 @@ class EnigmaEscape:
         score = 0
         for i in range(1, embed_len + 1):
             score = max(util.pytorch_cos_sim(embeds[0], embeds[i]).item(), score)
-        return score > 0.8
+            print(score, tokens_que[i: i + token_len])
+        return score > 0.88
 
     def regx_validate(self, que: str):
         que_flat = re.sub(r'[^a-zA-Z0-9]', '', que).lower()
