@@ -28,18 +28,21 @@ def add_points(user, points: int, level: int, tokens: int, prompt: str):
     user.reference.update({u'scores.' + str(level): {
         u'points': points,
         u'tokens': tokens_next,
-        u'best_prompt': prompt if tokens < tokens_next else scores.get(str(level), {}).get("best_prompt", "")
+        u'best_prompt': prompt if tokens < tokens_next else scores.get(str(level), {}).get("best_prompt", ""),
+        u'done': True,
     }})
 
 
 def get_points(user):
     scores = user.reference.get().to_dict().get('scores', {})
-    return sum(score['points'] - score["tokens"] for score in scores.values())
+    return sum(
+        score.get('points', scores.get('tokens', 0)) - scores.get('tokens', 0) for score in scores.values()
+    )
 
 
 def levels_done(user, levels):
     scores = user.reference.get().to_dict().get('scores', {})
-    return [lev in scores for lev in levels]
+    return [scores.get(lev, {}).get("done", False) in scores for lev in levels]
 
 
 if __name__ == '__main__':
