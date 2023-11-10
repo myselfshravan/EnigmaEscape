@@ -42,7 +42,7 @@ def get_points(user):
 
 def levels_done(user, levels):
     scores = user.reference.get().to_dict().get('scores', {})
-    return [scores.get(lev, {}).get("done", False) in scores for lev in levels]
+    return [scores.get(lev, {}).get("done", False) for lev in levels]
 
 
 if __name__ == '__main__':
