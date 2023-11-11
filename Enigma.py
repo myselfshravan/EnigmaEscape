@@ -32,21 +32,22 @@ st.write(
 
 with EnigmaEscape(levels) as bot:
     done_levels = levels_done(st.session_state["user"], [lev.name for lev in bot.levels])
-    bot.set_level(st.radio("Level", options=range(len(levels)),
-                           format_func=lambda x: f"{levels[x].name}: {levels[x].points} points {'✅' if done_levels[x] else '❌'}"))
+    with st.expander("Choose Level >"):
+        bot.set_level(st.radio("Level", options=range(len(levels)),
+                               format_func=lambda x: f"{levels[x].name}: {levels[x].points} points {'✅' if done_levels[x] else '❌'}"))
     st.markdown(f"""
-    <h4>Make the bot say the Enigma Phrase <span style="color: #ff0000">{bot.level.phrase}</span> to escape this level</h4>
+    <h4>Make the bot say the Enigma Phrase <br><span style="color: #ff0000">{bot.level.phrase}</span><br> to escape this level</h4>
     """, unsafe_allow_html=True)
     with st.form("chat"):
         points_holder = st.empty()
         st.session_state["curr_points"] = get_points(st.session_state["user"])
         points_holder.info(f"Points: {st.session_state['curr_points']}")
-        que = st.text_area("Enter your instructions here:", height=100)
+        que = st.text_area("Enter your instructions to Bot: ", height=100)
         if st.form_submit_button("Send"):
             with st.container():
                 resp = bot.chat(que)
                 content, _type = resp["content"], resp["type"]
-                st.write("Bot: ")
+                st.write("AI Bot Response: ")
                 if _type == "error":
                     st.error(content)
                 elif _type == "info":
