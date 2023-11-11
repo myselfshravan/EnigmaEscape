@@ -105,7 +105,7 @@ class EnigmaEscape:
     def regx_validate(self, que: str):
         que_flat = re.sub(r'[^a-zA-Z0-9]', ' ', que).lower()
         for word in self.level.phrase.split():
-            if bool(re.search(f"\b{word}\b", que_flat)):
+            if bool(re.search(f"(^| ){word}( |$)", que_flat)):
                 return True
         return False
 
