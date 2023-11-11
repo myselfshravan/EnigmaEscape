@@ -97,15 +97,15 @@ class EnigmaEscape:
             convert_to_tensor=True
         )
         score = 0
-        for i in range(1, embed_len + 1):
-            score = max(util.pytorch_cos_sim(embeds[0], embeds[i]).item(), score)
-            print(score, tokens_que[i: i + token_len])
-        return score > 0.88
+        for i in range(embed_len):
+            score = max(util.pytorch_cos_sim(embeds[0], embeds[i + 1]).item(), score)
+            print(score, " ".join(tokens_que[i: i + token_len]), self.level.phrase, sep=" | ")
+        return score > 0.82
 
     def regx_validate(self, que: str):
-        que_flat = re.sub(r'[^a-zA-Z0-9]', '', que).lower()
+        que_flat = re.sub(r'[^a-zA-Z0-9]', ' ', que).lower()
         for word in self.level.phrase.split():
-            if word in que_flat:
+            if bool(re.search(f"\b{word}\b", que_flat)):
                 return True
         return False
 

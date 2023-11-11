@@ -55,7 +55,7 @@ with EnigmaEscape(levels) as bot:
                     st.warning(content)
                 elif _type == "success":
                     st.success(content)
-                    st.success(f"hurray! you have earned {bot.level.points - resp['tokens'] - st.session_state['curr_points']} more points")
+                    st.success(f"hurray! you escaped and gained some points")
                     add_points(st.session_state["user"], bot.level.points, bot.level.name, resp["tokens"], que)
                     st.session_state["curr_points"] = get_points(st.session_state["user"])
                     points_holder.info(f"Points: {st.session_state['curr_points']}")

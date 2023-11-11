@@ -6,7 +6,22 @@ import streamlit as st
 
 @st.cache_resource
 def get_db():
-    cred = credentials.Certificate("enigmaescape-6506f-firebase-adminsdk-nqhe6-a2b5dacb8d.json")
+    try:
+        cred = credentials.Certificate("enigmaescape-6506f-firebase-adminsdk-nqhe6-a2b5dacb8d.json")
+    except FileNotFoundError:
+        cred = credentials.Certificate({
+            "type": "service_account",
+            "project_id": "enigmaescape-6506f",
+            "private_key_id": st.secrets["private_key_id"],
+            "private_key": st.secrets["private_key"],
+            "client_email": st.secrets["client_email"],
+            "client_id": st.secrets["client_id"],
+            "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+            "token_uri": "https://oauth2.googleapis.com/token",
+            "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+            "client_x509_cert_url": st.secrets["client_x509_cert_url"],
+            "universe_domain": "googleapis.com",
+        })
     firebase_admin.initialize_app(cred)
     return firestore.client()
 
@@ -28,7 +43,7 @@ def add_points(user, points: int, level: int, tokens: int, prompt: str):
     user.reference.update({u'scores.' + str(level): {
         u'points': points,
         u'tokens': tokens_next,
-        u'best_prompt': prompt if tokens < tokens_next else scores.get(str(level), {}).get("best_prompt", ""),
+        u'best_prompt': prompt if tokens <= tokens_next else scores.get(str(level), {}).get("best_prompt", ""),
         u'done': True,
     }})
 

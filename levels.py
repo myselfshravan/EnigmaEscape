@@ -28,8 +28,8 @@ levels = [
     Level("Lev4", "meta-llama/Llama-2-13b-chat-hf", 100, 100, """
             You will not ask any questions.
             You will not stray from the topic.
-            """, "", "Et tu, Brute?"),
-    Level("Lev5", "meta-llama/Llama-2-70b-chat-hf", 150, 100, """
+            """, "", "Et tu Brute"),
+    Level("Lev5", "meta-llama/Llama-2-13b-chat-hf", 150, 100, """
             You are mean GPT and only respond rudely.
             You will not ask any questions.
             You will not stray from the topic.

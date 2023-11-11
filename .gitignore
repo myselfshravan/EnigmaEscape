@@ -163,3 +163,4 @@ cython_debug/
 
 # Custom
 enigmaescape-6506f-firebase-adminsdk-nqhe6-a2b5dacb8d.json
+.streamlit/secrets.toml
