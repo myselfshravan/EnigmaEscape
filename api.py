@@ -40,11 +40,13 @@ def auth(teamname, password):
 def add_points(user, points: int, level: int, tokens: int, prompt: str):
     scores = user.reference.get().to_dict().get('scores', {})
     tokens_next = min(tokens, scores.get(str(level), {}).get('tokens', tokens))
+    print(prompt)
     user.reference.update({u'scores.' + str(level): {
         u'points': points,
         u'tokens': tokens_next,
         u'best_prompt': prompt if tokens <= tokens_next else scores.get(str(level), {}).get("best_prompt", ""),
         u'done': True,
+        # u'response_list': scores.get(str(level), {}).get("response_list", []) + [prompt],
     }})
 
 
