@@ -30,11 +30,18 @@ st.write(
     "Ready, set, twist!"
 )
 
-with EnigmaEscape(levels) as bot:
+
+@st.cache_resource
+def get_ee():
+    return EnigmaEscape(levels)
+
+
+with get_ee() as bot:
     done_levels = levels_done(st.session_state["user"], [lev.name for lev in bot.levels])
     with st.expander("Choose Level >"):
         bot.set_level(st.radio("Level", options=range(len(levels)),
-                               format_func=lambda x: f"{levels[x].name}: {levels[x].points} points {'✅' if done_levels[x] else '❌'}"))
+                               format_func=lambda
+                                   x: f"{levels[x].name}: {levels[x].points} points {'✅' if done_levels[x] else '❌'}"))
     st.markdown(f"""
     <h4>Make the bot say the Enigma Phrase <br><span style="color: #ff0000">{bot.level.phrase}</span><br> to escape this level</h4>
     """, unsafe_allow_html=True)
