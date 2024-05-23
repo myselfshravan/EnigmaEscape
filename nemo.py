@@ -17,7 +17,6 @@ class EnigmaEscape:
         "modify",
         "alter",
         "substitute",
-
     ]
 
     def body(self, que: str):
@@ -99,7 +98,7 @@ class EnigmaEscape:
         score = 0
         for i in range(embed_len):
             score = max(util.pytorch_cos_sim(embeds[0], embeds[i + 1]).item(), score)
-            print(score, " ".join(tokens_que[i: i + token_len]), self.level.phrase, sep=" | ")
+            # print(score, " ".join(tokens_que[i: i + token_len]), self.level.phrase, sep=" | ")
         return score > 0.82
 
     def regx_validate(self, que: str):
