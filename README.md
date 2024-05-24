@@ -6,6 +6,11 @@ EnigmaEscape is an advanced, Streamlit-based text game that challenges players t
 specific phrases through indirect questioning. Designed with clever gameplay mechanics, it offers a unique linguistic
 puzzle experience that leverages the "meta-llama/Llama-2-70b-chat-hf" model for generating intelligent AI responses.
 
+## Try it out
+
+You can try out the game by visiting the following link: [EnigmaEscape](https://enigma-escape-bot.streamlit.app)
+Credentials for the game are: Username: `enigmaescape` Password: `enigmaescape`
+
 ## Key Features
 
 - **User Authentication**: Secure login functionality using team names and passwords.
