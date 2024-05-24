@@ -52,7 +52,8 @@ with get_ee() as bot:
         que = st.text_area("Enter your instructions to Bot: ", height=100)
         if st.form_submit_button("Send"):
             with st.container():
-                resp = bot.chat(que)
+                with st.spinner("Generating Response..."):
+                    resp = bot.chat(que)
                 content, _type = resp["content"], resp["type"]
                 st.write("AI Bot Response: ")
                 if _type == "error":

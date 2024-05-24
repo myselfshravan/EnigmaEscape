@@ -3,13 +3,14 @@ from typing import Union
 import re
 from collections import namedtuple
 from sentence_transformers import SentenceTransformer, util
+import streamlit as st
 
 Level = namedtuple("Level", ["name", "description", "hint", "phrase"])
 
 
 class EnigmaEscape:
     API_ENDPOINT = "https://api.endpoints.anyscale.com/v1/chat/completions"
-    API_KEY = "esecret_hanjm9lbkdr62f7csy3fem5fvy"
+    API_KEY = st.secrets["anyscale_api"]
     forbids = [
         "replace",
         "swap",
