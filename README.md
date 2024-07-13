@@ -11,6 +11,11 @@ puzzle experience that leverages the "meta-llama/Llama-2-70b-chat-hf" model for 
 You can try out the game by visiting the following link: [EnigmaEscape](https://enigma-escape-bot.streamlit.app)
 Credentials for the game are: Username: `enigmaescape` Password: `enigmaescape`
 
+## Demo
+
+![EnigmaEscape Demo](https://github.com/user-attachments/assets/ee98f54e-e4bf-4a9a-8ead-01db1cc5f8c3)
+![image](https://github.com/user-attachments/assets/bc94b006-efd2-4fdc-b306-a6307531f040)
+
 ## Key Features
 
 - **User Authentication**: Secure login functionality using team names and passwords.
