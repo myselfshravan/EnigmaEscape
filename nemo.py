@@ -4,6 +4,9 @@ import re
 from collections import namedtuple
 from sentence_transformers import SentenceTransformer, util
 import streamlit as st
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 Level = namedtuple("Level", ["name", "description", "hint", "phrase"])
 
