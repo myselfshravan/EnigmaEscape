@@ -9,8 +9,8 @@ Level = namedtuple("Level", ["name", "description", "hint", "phrase"])
 
 
 class EnigmaEscape:
-    API_ENDPOINT = "https://api.endpoints.anyscale.com/v1/chat/completions"
-    API_KEY = st.secrets["anyscale_api"]
+    API_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions"
+    API_KEY = st.secrets["groq_api"]
     forbids = [
         "replace",
         "swap",

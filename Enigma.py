@@ -13,6 +13,7 @@ st.session_state["user"] = st.session_state.get("user", None)
 
 if st.session_state["user"] is None:
     with st.form("login"):
+        st.info("You can use **enigmaescape** as teamname and password to login")
         teamname = st.text_input("Team Name")
         password = st.text_input("Password", type="password")
         if st.form_submit_button("Login"):
