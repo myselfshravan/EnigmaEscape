@@ -12,9 +12,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Create empty commit
+      - name: Create empty commit and push
+        env:
+          PAT: ${{ secrets.PAT }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit --allow-empty -m "chore: keepalive"
-          git push
+          git commit --allow-empty -m "chore: keepalive" || echo "No changes to commit"
+          git push https://github-actions:${PAT}@github.com/${{ github.repository }} HEAD:main
