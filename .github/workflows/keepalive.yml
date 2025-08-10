@@ -19,4 +19,4 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git commit --allow-empty -m "chore: keepalive" || echo "No changes to commit"
-          git push https://github-actions:${PAT}@github.com/${{ github.repository }} HEAD:main
+          git push https://myselfshravan:${PAT}@github.com/${{ github.repository }} HEAD:main
