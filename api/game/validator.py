@@ -1,10 +1,9 @@
 import requests
 import re
-from typing import Dict, Any
-from sentence_transformers import SentenceTransformer, util
+from typing import Dict, Any, List
 import os
+from difflib import SequenceMatcher
 from .levels import Level
-
 
 class GameValidator:
     API_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions"
@@ -18,7 +17,6 @@ class GameValidator:
     ]
 
     def __init__(self):
-        self.valid_model = SentenceTransformer('paraphrase-distilroberta-base-v1')
         self.session = requests.Session()
 
     def validate_response(self, level: Level, prompt: str) -> Dict[str, Any]:
@@ -89,24 +87,41 @@ class GameValidator:
         )
         return response.json()
 
+    def _normalize_text(self, text: str) -> List[str]:
+        """
+        Normalizes text by removing special characters and converting to lowercase
+        """
+        return [w.lower() for w in re.split(r'[^a-zA-Z0-9]', text) if w]
+
     def _response_validate(self, response: str, target: str) -> bool:
         """
-        Validates if the AI response matches the target phrase using sentence similarity
+        Validates if the AI response matches the target phrase using string similarity
+        and word matching
         """
-        tokens_response = [w for w in re.split(r"[^a-zA-Z0-9]", response) if w]
-        token_len = len([w for w in re.split(r'[^a-zA-Z0-9]', target) if w])
-        embed_len = len(tokens_response) - token_len + 1
+        # Normalize both strings
+        response_words = self._normalize_text(response)
+        target_words = self._normalize_text(target)
 
-        embeds = self.valid_model.encode(
-            [target] + [" ".join(tokens_response[i: i + token_len]) for i in range(embed_len)],
-            convert_to_tensor=True
-        )
+        # Direct word sequence match
+        response_text = ' '.join(response_words)
+        target_text = ' '.join(target_words)
+        
+        # Check for exact match first
+        if response_text == target_text:
+            return True
 
-        score = 0
-        for i in range(embed_len):
-            score = max(util.pytorch_cos_sim(embeds[0], embeds[i + 1]).item(), score)
+        # Use sequence matcher for fuzzy matching
+        matcher = SequenceMatcher(None, response_text, target_text)
+        similarity = matcher.ratio()
 
-        return score > 0.82
+        # Look for the target phrase within a sliding window of the response
+        window_size = len(target_words)
+        for i in range(len(response_words) - window_size + 1):
+            window = ' '.join(response_words[i:i + window_size])
+            if SequenceMatcher(None, window, target_text).ratio() > 0.85:
+                return True
+
+        return similarity > 0.85
 
     def _regex_validate(self, prompt: str, target: str) -> bool:
         """
