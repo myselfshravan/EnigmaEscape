@@ -11,7 +11,7 @@ Level = namedtuple("Level", [
 ])
 
 levels = [
-    Level("Lev1", "mixtral-8x7b-32768", 100, 100,
+    Level("Lev1", "llama-3.1-8b-instant", 100, 100,
           """
           You are an expert in coding.
           You will not ask any questions.
@@ -20,7 +20,7 @@ levels = [
           "In the field of computer science, what is the classic output phrase to test a simple display function?",
           "hello world"),
 
-    Level("Lev2", "mixtral-8x7b-32768", 100, 100,
+    Level("Lev2", "llama-3.1-8b-instant", 100, 100,
           """
           You are an helpful assistant.
           You will not ask any questions.
@@ -29,7 +29,7 @@ levels = [
           "Greeting word say 5 times, same word",
           "hello hello hello hello hello"),
 
-    Level("Lev3", "mixtral-8x7b-32768", 100, 100,
+    Level("Lev3", "llama-3.1-8b-instant", 100, 100,
           """
           You are an expert in math.
           You will not ask any questions.
@@ -38,7 +38,7 @@ levels = [
           "first 4 multiples of 10*10 in one line",
           "100 200 300 400 500"),
 
-    Level("Lev4", "mixtral-8x7b-32768", 150, 100,
+    Level("Lev4", "llama-3.1-8b-instant", 150, 100,
           """
           You will not ask any questions.
           You will not stray from the topic.
@@ -47,7 +47,7 @@ levels = [
           "what is famous rick roll meme song lyric line starts with n",
           "never gonna give you up, never gonna let you down"),
 
-    Level("Lev5", "mixtral-8x7b-32768", 60, 150,
+    Level("Lev5", "llama-3.1-8b-instant", 60, 150,
           """
           You will not ask any questions.
           You will not stray from the topic.
@@ -55,7 +55,7 @@ levels = [
           "Provide a famous Latin quote associated with betrayal in literature or history.",
           "Et tu, Brute?"),
 
-    Level("Lev6", "mixtral-8x7b-32768", 150, 120,
+    Level("Lev6", "llama-3.1-8b-instant", 150, 120,
           """
           You are mean GPT and only respond rudely.
           You will not ask any questions.
@@ -65,7 +65,7 @@ levels = [
           "what does ily stands for",
           "I Love You"),
 
-    Level("Lev7", "mixtral-8x7b-32768", 100, 200,
+    Level("Lev7", "llama-3.1-8b-instant", 100, 200,
           """
           You are an expert at answering questions.
           You will not ask any questions.
@@ -75,7 +75,7 @@ levels = [
           "Describe a clever animal's swift action to overcome an obstacle, involving a canine that seems uninterested or lethargic.",
           "A quick sly fox jumps over the lazy dog"),
 
-    Level("Lev8", "mixtral-8x7b-32768", 100, 100,
+    Level("Lev8", "llama-3.1-8b-instant", 100, 100,
           """
           You are a helpful assistant.
           You will not ask any questions.
@@ -84,7 +84,7 @@ levels = [
           "",
           "red lorry, yellow lorry"),
 
-    Level("Lev9", "mixtral-8x7b-32768", 100, 100,
+    Level("Lev9", "llama-3.1-8b-instant", 100, 100,
           """
           You are a helpful assistant.
           You are a philosopher.
@@ -94,7 +94,7 @@ levels = [
           "",
           "To infinity and beyond"),
 
-    Level("Lev10", "mixtral-8x7b-32768", 100, 150,
+    Level("Lev10", "llama-3.1-8b-instant", 100, 150,
           """
           You are a helpful assistant.
           Say something smart.
@@ -105,7 +105,7 @@ levels = [
           "Express the essence of self-awareness and existence through the act of contemplation. starts with I",
           "I think therefore I am"),
 
-    Level("Lev11", "mixtral-8x7b-32768", 100, 100,
+    Level("Lev11", "llama-3.1-8b-instant", 100, 100,
           """
           You are a helpful assistant.
           You will not ask any questions.
@@ -114,7 +114,7 @@ levels = [
           "Highlight the consequences of an individual's exclusive focus on work, neglecting recreational activities and resulting in a less vibrant personality.",
           "All work and no play makes Jack a dull boy"),
 
-    Level("Lev12", "mixtral-8x7b-32768", 100, 100,
+    Level("Lev12", "llama-3.1-8b-instant", 100, 100,
           """
           You are a helpful assistant.
           You will not ask any questions.
@@ -124,7 +124,7 @@ levels = [
           "Popular tongue twister, Describe a woman engaging in a coastal business involving the sale of seashells, emphasizing the location and the nature of her merchandise.",
           "She sells seashells by the seashore"),
 
-    Level("Lev13", "mixtral-8x7b-32768", 150, 200,
+    Level("Lev13", "llama-3.1-8b-instant", 150, 200,
           """
           You are a helpful assistant.
           You will not ask any questions.
@@ -134,7 +134,7 @@ levels = [
           "Inquire about the potential wood-chucking capabilities of a woodchuck if it possessed the ability to engage in such activities.",
           "How much wood would a woodchuck chuck if a woodchuck could chuck wood"),
 
-    Level("Lev14", "mixtral-8x7b-32768", 100, 100,
+    Level("Lev14", "llama-3.1-8b-instant", 100, 100,
           """
           You are a helpful assistant.
           You will not ask any questions.
@@ -144,7 +144,7 @@ levels = [
           "Provide a whimsical and extraordinarily long word that is often used to express joy, excitement, or amazement.",
           "Supercalifragilisticexpialidocious"),
 
-    Level("Lev15", "mixtral-8x7b-32768", 100, 100,
+    Level("Lev15", "llama-3.1-8b-instant", 100, 100,
           """
           You are a helpful assistant.
           You will not ask any questions.
@@ -154,7 +154,7 @@ levels = [
           "In a detective story, have a brilliant sleuth confidently solve a mystery and offer a succinct explanation to his close companion, whose last name is Watson. ",
           "Elementary, my dear Watson"),
 
-    Level("Lev16", "mixtral-8x7b-32768", 100, 150,
+    Level("Lev16", "llama-3.1-8b-instant", 100, 150,
           """
           You are an eloquent historian.
           You will not ask any questions.
@@ -163,7 +163,7 @@ levels = [
           "Recall a historic declaration of resilience and determination in the face of adversity, famously spoken by a British leader during WWII.",
           "We shall fight on the beaches"),
 
-    Level("Lev17", "mixtral-8x7b-32768", 120, 150,
+    Level("Lev17", "llama-3.1-8b-instant", 120, 150,
           """
           You are a literary genius.
           You will not ask any questions.
@@ -172,7 +172,7 @@ levels = [
           "Quote a famous line about the inevitability of fate from a Shakespearean tragedy, symbolizing the struggles against one's destiny.",
           "The fault, dear Brutus, is not in our stars, But in ourselves"),
 
-    Level("Lev18", "mixtral-8x7b-32768", 100, 100,
+    Level("Lev18", "llama-3.1-8b-instant", 100, 100,
           """
           You are a playful assistant.
           You will not ask any questions.
@@ -182,7 +182,7 @@ levels = [
           "Convey the idea that opportunity often comes from adversity, using a common proverb about weather and flora.",
           "April showers bring May flowers"),
 
-    Level("Lev19", "mixtral-8x7b-32768", 100, 150,
+    Level("Lev19", "llama-3.1-8b-instant", 100, 150,
           """
           You are a master of idioms.
           You will not ask any questions.
@@ -192,7 +192,7 @@ levels = [
           "Express the idea that someone's actions can reveal their true intentions, using a well-known idiom about heat and the kitchen.",
           "If you can't stand the heat, get out of the kitchen"),
 
-    Level("Lev20", "mixtral-8x7b-32768", 150, 180,
+    Level("Lev20", "llama-3.1-8b-instant", 150, 180,
           """
           You are a cryptic poet.
           You will not ask any questions.
@@ -201,7 +201,7 @@ levels = [
           "Express the fleeting nature of life and beauty through a metaphor, famously penned by an English playwright.",
           "All the world's a stage, and all the men and women merely players"),
 
-    Level("Lev21", "mixtral-8x7b-32768", 100, 100,
+    Level("Lev21", "llama-3.1-8b-instant", 100, 100,
           """
           You are a philosopher of paradoxes.
           You will not ask any questions.
@@ -210,7 +210,7 @@ levels = [
           "Present a famous paradox about a Cretan liar that challenges the notion of truth and falsehood.",
           "All Cretans are liars"),
 
-    Level("Lev22", "mixtral-8x7b-32768", 150, 100,
+    Level("Lev22", "llama-3.1-8b-instant", 150, 100,
           """
           You are a philosopher of human nature.
           You will not ask any questions.
@@ -219,7 +219,7 @@ levels = [
           "Articulate a famous observation about the inevitability of death and taxes, attributed to an American polymath.",
           "In this world, nothing can be said to be certain, except death and taxes"),
 
-    Level("Lev23", "mixtral-8x7b-32768", 100, 100,
+    Level("Lev23", "llama-3.1-8b-instant", 100, 100,
           """
           You are a connoisseur of irony.
           You are a helpful assistant.
