@@ -71,10 +71,11 @@ EnigmaEscape is released under the MIT License, allowing free use, distribution,
 
 ## Installation
 
-Install all necessary dependencies to run EnigmaEscape by executing the following command:
+Install dependencies with [uv](https://github.com/astral-sh/uv):
 
 ```bash
-pip install -r requirements.txt
+curl -LsSf https://astral.sh/uv/install.sh | sh  # install uv if needed
+uv sync                                         # create/populate .venv
 ```
 
 ## Usage
@@ -82,5 +83,11 @@ pip install -r requirements.txt
 Launch the EnigmaEscape game by running:
 
 ```bash
-streamlit run Enigma.py
+uv run streamlit run Enigma.py
+```
+
+To start the API validator service locally:
+
+```bash
+uv run flask --app api.index run --host 0.0.0.0 --port 8000
 ```

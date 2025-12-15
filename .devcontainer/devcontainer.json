@@ -17,9 +17,9 @@
       ]
     }
   },
-  "updateContentCommand": "[ -f packages.txt ] && sudo apt update && sudo apt upgrade -y && sudo xargs apt install -y <packages.txt; [ -f requirements.txt ] && pip3 install --user -r requirements.txt; pip3 install --user streamlit; echo '✅ Packages installed and Requirements met'",
+  "updateContentCommand": "[ -f packages.txt ] && sudo apt update && sudo apt upgrade -y && sudo xargs apt install -y <packages.txt; if ! command -v uv >/dev/null 2>&1; then curl -LsSf https://astral.sh/uv/install.sh | sh; fi; export PATH=\"$HOME/.local/bin:$HOME/.cargo/bin:$PATH\"; uv sync; echo '✅ Dependencies installed with uv'",
   "postAttachCommand": {
-    "server": "streamlit run Enigma.py --server.enableCORS false --server.enableXsrfProtection false"
+    "server": "PATH=\"$HOME/.local/bin:$HOME/.cargo/bin:$PATH\" uv run streamlit run Enigma.py --server.enableCORS false --server.enableXsrfProtection false"
   },
   "portsAttributes": {
     "8501": {

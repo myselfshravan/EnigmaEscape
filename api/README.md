@@ -129,9 +129,9 @@ const levels = await fetch('https://your-api.vercel.app/api/levels')
 ## Development
 
 1. Clone the repository
-2. Install dependencies:
+2. Install dependencies with uv:
    ```bash
-   pip install -r requirements.txt
+   uv sync
    ```
 3. Create a .env file with:
    ```
@@ -139,7 +139,7 @@ const levels = await fetch('https://your-api.vercel.app/api/levels')
    ```
 4. Run locally:
    ```bash
-   python index.py
+   uv run flask --app api.index run --host 0.0.0.0 --port 8000
    ```
 
 ## Deployment

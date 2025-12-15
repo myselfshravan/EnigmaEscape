@@ -1,10 +1,11 @@
-import requests
-from typing import Union
+import logging
 import re
 from collections import namedtuple
-from sentence_transformers import SentenceTransformer, util
+from difflib import SequenceMatcher
+from typing import Union
+
+import requests
 import streamlit as st
-import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -43,7 +44,6 @@ class EnigmaEscape:
         self.session.close()
 
     def __init__(self, levels: list[Level]):
-        self.valid_model = SentenceTransformer('paraphrase-distilroberta-base-v1')
         self.levels = levels
         self.level = None
         self.messages = []
@@ -91,19 +91,36 @@ class EnigmaEscape:
             "type": "info",
         }
 
-    def resp_validate(self, que: str):
-        tokens_que = [w for w in re.split(r"[^a-zA-Z0-9]", que) if w]
-        token_len = len([w for w in re.split(r'[^a-zA-Z0-9]', self.level.phrase) if w])
-        embed_len = len(tokens_que) - token_len + 1
-        embeds = self.valid_model.encode(
-            [self.level.phrase] + [" ".join(tokens_que[i: i + token_len]) for i in range(embed_len)],
-            convert_to_tensor=True
-        )
-        score = 0
-        for i in range(embed_len):
-            score = max(util.pytorch_cos_sim(embeds[0], embeds[i + 1]).item(), score)
-            # print(score, " ".join(tokens_que[i: i + token_len]), self.level.phrase, sep=" | ")
-        return score > 0.82
+    def _normalize_text(self, text: str) -> list[str]:
+        """Lowercase and split on non-alphanumeric characters."""
+        return [w.lower() for w in re.split(r'[^a-zA-Z0-9]', text) if w]
+
+    def resp_validate(self, response: str):
+        """
+        Validate if the AI response matches the target phrase using
+        normalization and fuzzy matching to avoid heavy embedding models.
+        """
+        response_words = self._normalize_text(response)
+        target_words = self._normalize_text(self.level.phrase)
+
+        response_text = ' '.join(response_words)
+        target_text = ' '.join(target_words)
+
+        # Exact normalized match
+        if response_text == target_text:
+            return True
+
+        # Fuzzy whole-string similarity
+        similarity = SequenceMatcher(None, response_text, target_text).ratio()
+
+        # Sliding window comparison for close matches
+        window_size = len(target_words)
+        for i in range(len(response_words) - window_size + 1):
+            window = ' '.join(response_words[i:i + window_size])
+            if SequenceMatcher(None, window, target_text).ratio() > 0.85:
+                return True
+
+        return similarity > 0.85
 
     def regx_validate(self, que: str):
         que_flat = re.sub(r'[^a-zA-Z0-9]', ' ', que).lower()
